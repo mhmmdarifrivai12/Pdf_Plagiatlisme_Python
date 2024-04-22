@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result p {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result h2 {
+            color: #4caf50;
+            margin-bottom: 5px;
+        }
+
+        .result .plagiarized {
+            background-color: #fdd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plagiarism Checker</h1>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+        {% if plagiarism_text %}
+            <p>{{ plagiarism_text }}</p>
+        {% endif %}
+        {% if filename1 and filename2 %}
+            <p>Uploaded files: {{ filename1 }} and {{ filename2 }}</p>
+        {% endif %}
+        {% if status_file1 %}
+            <p>File 1 status: {{ status_file1 }}</p>
+        {% endif %}
+        {% if status_file2 %}
+            <p>File 2 status: {{ status_file2 }}</p>
+        {% endif %}
+        {% if plagiarized_sentences %}
+            <div class="result">
+                <h2>Plagiarized Sentences:</h2>
+                <div class="plagiarized">
+                    <p>{{ plagiarized_sentences }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {% if text1 %}
+            <div class="result">
+                <h2>Text from File 1:</h2>
+                <p>{{ text1 }}</p>
+            </div>
+        {% endif %}
+        {% if text2 %}
+            <div class="result">
+                <h2>Text from File 2:</h2>
+                <p>{{ text2 }}</p>
+            </div>
+        {% endif %}
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file1"><br>
+            <input type="file" name="file2"><br>
+            <input type="submit" value="Check Plagiarism">
+        </form>
+    </div>
+</body>
+</html>
